@@ -3,11 +3,11 @@
         <!-- wwManager:start -->
         <wwOrangeButton class="ww-orange-button" v-if="wwObjectCtrl.getSectionCtrl().getEditMode() == 'CONTENT'"></wwOrangeButton>
         <!-- wwManager:end -->
-        <wwObject :ww-object="wwObject.content.data.title" ww-inside-ww-object="ww-dropdown" :ww-not-editable="textNotEditable" ww-default-object-type="ww-text" ww-object-types-allowed="['ww-text']" :ww-no-section="wwAttrs.wwNoSection" :ww-no-link="wwAttrs.wwNoLink" ww-force-edit-mode="CONTENT"></wwObject>
+        <wwObject :ww-object="wwObject.data.title" ww-inside-ww-object="ww-dropdown" :ww-not-editable="textNotEditable" ww-default-object-type="ww-text" ww-object-types-allowed="['ww-text']" :ww-no-section="wwAttrs.wwNoSection" :ww-no-link="wwAttrs.wwNoLink" ww-force-edit-mode="CONTENT"></wwObject>
         <div class="dropdown">
-            <wwObject class="background" ww-category="background" :ww-object="wwObject.content.data.background" ww-inside-ww-object="ww-dropdown"></wwObject>
-            <wwLayoutColumn tag="div" ww-default="ww-image" :ww-list="wwObject.content.data.list" class="dropdown-list" @ww-add="wwAdd($event)" @ww-remove="wwRemove($event)">
-                <wwObject v-for="wwObj in wwObject.content.data.list" :key="wwObj.uniqueId" :ww-object="wwObj" ww-inside-ww-object="ww-dropdown"></wwObject>
+            <wwObject class="background" ww-category="background" :ww-object="wwObject.data.background" ww-inside-ww-object="ww-dropdown"></wwObject>
+            <wwLayoutColumn tag="div" ww-default="ww-image" :ww-list="wwObject.data.list" class="dropdown-list" @ww-add="wwAdd($event)" @ww-remove="wwRemove($event)">
+                <wwObject v-for="wwObj in wwObject.data.list" :key="wwObj.uniqueId" :ww-object="wwObj" ww-inside-ww-object="ww-dropdown"></wwObject>
             </wwLayoutColumn>
         </div>
     </div>
@@ -38,7 +38,7 @@ export default {
         },
         style() {
             let style = {};
-            let wwObjectStyle = this.wwObject.content.data.style || {};
+            let wwObjectStyle = this.wwObject.style || {};
             style.justifyContent = wwObjectStyle.justify || 'center';
             return style;
         }
@@ -48,7 +48,7 @@ export default {
     beforeDestroy() { },
     methods: {
         init() {
-            if (!this.wwObject.content.data.title || !this.wwObject.content.data.title.uniqueId) {
+            if (!this.wwObject.data.title || !this.wwObject.data.title.uniqueId) {
 
                 let text = wwLib.wwObject.getDefault()
                 text.content = wwLib.wwObject.getDefaultContent('ww-text')
@@ -57,17 +57,17 @@ export default {
                     en: 'New text',
                 }
 
-                this.wwObject.content.data.title = text
+                this.wwObject.data.title = text
                 this.wwObjectCtrl.update(this.wwObject);
             }
 
-            if (!this.wwObject.content.data.background || !this.wwObject.content.data.background.uniqueId) {
+            if (!this.wwObject.data.background || !this.wwObject.data.background.uniqueId) {
 
                 let color = wwLib.wwObject.getDefault()
                 color.content = wwLib.wwObject.getDefaultContent('ww-color');
                 color.content.data.backgroundColor = '#FFFFFF';
 
-                this.wwObject.content.data.background = color
+                this.wwObject.data.background = color
                 this.wwObjectCtrl.update(this.wwObject);
             }
         },
@@ -171,7 +171,7 @@ export default {
                             },
                             type: 'select',
                             key: 'justify',
-                            valueData: 'wwObject.content.data.style.justify',
+                            valueData: 'wwObject.style.justify',
                             options: {
                                 type: 'text',
                                 values: [
@@ -230,36 +230,36 @@ export default {
                 /*=============================================m_ÔÔ_m=============================================\
                   STYLE
                 \================================================================================================*/
-                this.wwObject.content.data.style = this.wwObject.content.data.style || {};
+                this.wwObject.style = this.wwObject.style || {};
                 if (typeof (result.borderColor) != 'undefined') {
-                    this.wwObject.content.data.style.borderColor = result.borderColor;
+                    this.wwObject.style.borderColor = result.borderColor;
                 }
                 if (typeof (result.borderRadius) != 'undefined') {
-                    this.wwObject.content.data.style.borderRadius = result.borderRadius;
+                    this.wwObject.style.borderRadius = result.borderRadius;
                 }
                 if (typeof (result.borderStyle) != 'undefined') {
-                    this.wwObject.content.data.style.borderStyle = result.borderStyle;
+                    this.wwObject.style.borderStyle = result.borderStyle;
                 }
                 if (typeof (result.borderWidth) != 'undefined') {
-                    this.wwObject.content.data.style.borderWidth = result.borderWidth;
+                    this.wwObject.style.borderWidth = result.borderWidth;
                 }
                 if (typeof (result.boxShadow) != 'undefined') {
-                    this.wwObject.content.data.style.boxShadow = result.boxShadow;
+                    this.wwObject.style.boxShadow = result.boxShadow;
                 }
                 if (typeof (result.backgroundColor) != 'undefined') {
-                    this.wwObject.content.data.style.backgroundColor = result.backgroundColor;
+                    this.wwObject.style.backgroundColor = result.backgroundColor;
                 }
                 if (typeof (result.gradient) != 'undefined') {
-                    this.wwObject.content.data.style.gradient = result.gradient;
+                    this.wwObject.style.gradient = result.gradient;
                 }
                 if (typeof (result.gradientColor) != 'undefined') {
-                    this.wwObject.content.data.style.backgroundColor = result.gradientColor;
+                    this.wwObject.style.backgroundColor = result.gradientColor;
                 }
                 if (typeof (result.padding) != 'undefined') {
-                    this.wwObject.content.data.style.padding = result.padding;
+                    this.wwObject.style.padding = result.padding;
                 }
                 if (typeof (result.justify) != 'undefined') {
-                    this.wwObject.content.data.style.justify = result.justify;
+                    this.wwObject.style.justify = result.justify;
                 }
 
 
@@ -277,11 +277,11 @@ export default {
             this.focus = focusId == this.$parent._uid
         },
         wwAdd(options) {
-            this.wwObject.content.data.list.splice(options.index, 0, options.wwObject);
+            this.wwObject.data.list.splice(options.index, 0, options.wwObject);
             this.wwObjectCtrl.update(this.wwObject);
         },
         wwRemove(options) {
-            this.wwObject.content.data.list.splice(options.index, 1);
+            this.wwObject.data.list.splice(options.index, 1);
             this.wwObjectCtrl.update(this.wwObject);
         },
         toggle() {

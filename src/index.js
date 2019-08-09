@@ -7,22 +7,6 @@ const addComponent = function () {
     if (window.vm) {
 
         wwLib.wwObject.register({
-            content: {
-                type: name,
-                data: {
-                    style: {
-                        justify: null
-                    },
-                    title: {},
-                    background: {},
-                    list: []
-                }
-            },
-            upsales: {
-                wwAnalytics: {
-                    click: true
-                }
-            },
             /* wwManager:start */
             cmsOptions: {
                 wwObjectMenu: {
@@ -48,8 +32,24 @@ const addComponent = function () {
                         }
                     ]
                 }
-            }
+            },
             /* wwManager:end */
+            content: {
+                type: name,
+                data: {
+                    style: {
+                        justify: null
+                    },
+                    title: {},
+                    background: {},
+                    list: []
+                }
+            },
+            upsales: {
+                wwAnalytics: {
+                    click: true
+                }
+            }
         });
 
         window.vm.addComponent({
